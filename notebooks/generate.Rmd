@@ -40,7 +40,7 @@ library(purrr)
 library(rethinking)
 library(MASS)
 library(tidyr)
-library(ccgarch)
+## library(ccgarch)
 library(abind)
 library(marima)
 ```
@@ -124,7 +124,7 @@ tau %>% data.frame() %>%
 
 ## Cyclicality
 
-```{r cyclicality}
+```{r cyclicality-2}
 lambda <- 2 * pi / runif(params$S, 250, 1000)
 rho <- runif(params$S, 0, 1)
 theta_cycle <- abs(rcauchy(params$S, 0, .1)) / params$period_scale
@@ -354,7 +354,7 @@ parameters <- samples %>% gather_draws(
 )
 ```
 
-```{r pairs,eval=F}
+```{r pairs-2,eval=F}
 series_to_show <- "series_1"
 
 parameters %>%

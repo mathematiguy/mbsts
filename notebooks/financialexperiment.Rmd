@@ -12,6 +12,18 @@ params:
   periods_to_predict: 30 
 ---
 
+```{r}
+params = list(tickers = c("AAPL", "MSFT", "AMD", "INTL", "GE", "GM", "SHLD"),
+              from_date = as.Date("2018-01-01"),
+              ar = 2,
+              p = 2,
+              q = 2,
+              s = c(5,20),
+              corr_prior = 4,
+              periods_to_predict = 30)
+```
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
@@ -82,10 +94,11 @@ stan_data <- compose_data(
 
 ```{r model}
 model <- stan_model("./mbsts.stan")
+write_rds(model, "mbsts.model")
 ```
 
 ```{r sample}
-samples <- sampling(model, data=stan_data, chains=2, iter=2000, cores=4,
+samples <- sampling(model, data=stan_data, chains=4, iter=2000, cores=4,
                     #control=list(adapt_delta=0.9, max_treedepth=15), 
                     init="0"
                     ) %>% recover_types(prices_gathered)

@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 generate_files
+models/mbsts.model
